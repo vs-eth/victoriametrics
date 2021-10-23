@@ -1,0 +1,27 @@
+frontend https-frontend
+    bind :::{{ victoriametrics_haproxy_port }}
+    mode tcp
+    option tcplog
+    tcp-request inspect-delay 5s
+    tcp-request content accept if { req.ssl_hello_type 1 }
+
+    use_backend https-to-vm if { req_ssl_sni -i {{ victoriametrics_haproxy_domain }} }
+
+    default_backend https-to-default
+
+backend https-to-vm
+    mode tcp
+    server local 127.0.0.1:{{ victoriametrics_haproxy_vmport }} send-proxy-v2
+
+backend https-to-default
+    mode tcp
+    server local {{ victoriametrics_haproxy_default_backend }} send-proxy-v2
+
+frontend vm-https-frontend
+    bind 127.0.0.1:{{ victoriametrics_haproxy_vmport }} accept-proxy ssl crt /etc/haproxy/victoriametrics.pem ca-file /etc/haproxy/victoriametrics-ca.pem crl-file /etc/haproxy/victoriametrics-crl.pem verify required
+    mode http
+    default_backend vm-backend
+
+backend vm-backend
+    mode http
+    server local {{ victoriametrics_http_addr }}

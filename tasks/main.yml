@@ -1,0 +1,28 @@
+- name: Install VictoriaMetrics
+  become: True
+  apt:
+    state: present
+    update_cache: yes
+    cache_valid_time: 1800
+    name:
+      - victoria-metrics
+
+- name: Configure VictoriaMetrics
+  become: True
+  template:
+    src: victoria-metrics.j2
+    dest: /etc/default/victoria-metrics
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart victoria-metrics
+
+- name: Configure HAProxy dropin
+  become: True
+  template:
+    src: haproxy-dropin.conf.j2
+    dest: /etc/haproxy/conf.d/40-victoriametrics.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart haproxy

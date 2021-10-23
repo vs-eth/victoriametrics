@@ -1,0 +1,13 @@
+- name: restart victoria-metrics
+  become: True
+  service:
+    name: victoria-metrics
+    state: restarted
+    enabled: yes
+
+- name: restart haproxy
+  become: True
+  service:
+    name: haproxy
+    state: restarted
+    enabled: yes

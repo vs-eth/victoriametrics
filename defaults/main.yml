@@ -1,0 +1,16 @@
+victoriametrics_enable_graphite: False
+victoriametrics_graphite_addr: 127.0.0.1:2003
+
+victoriametrics_enable_influx: False
+victoriametrics_influx_url: http://127.0.0.1:8428/write
+
+victoriametrics_http_addr: 127.0.0.1:8428
+
+victoriametrics_mem_pct: 60
+
+victoriametrics_retention_period: 1
+
+victoriametrics_haproxy_port: 443
+victoriametrics_haproxy_vmport: 55042
+victoriametrics_haproxy_domain: ship.example.org
+victoriametrics_haproxy_default_backend: 127.0.0.1:444

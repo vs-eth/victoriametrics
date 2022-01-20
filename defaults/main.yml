@@ -14,3 +14,11 @@ victoriametrics_haproxy_port: 443
 victoriametrics_haproxy_vmport: 55042
 victoriametrics_haproxy_domain: ship.example.org
 victoriametrics_haproxy_default_backend: 127.0.0.1:444
+
+
+# Set this variable to connect a blackbox-exporter to victoriametrics
+# victoriametrics_blackbox_address: 127.0.0.1:9115
+# victoriametrics_blackbox_targets:
+#   - http://prometheus.io    # Target to probe with http.
+#   - https://prometheus.io   # Target to probe with https.
+#   - http://example.com:8080 # Target to probe with http on port 8080.

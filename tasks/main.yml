@@ -26,17 +26,6 @@
     mode: 0755
     state: directory
 
-- name: Configure prometheus.yml
-  become: True
-  template:
-    src: prometheus.yml.j2
-    dest: /etc/victoriametrics/prometheus.yml
-    owner: root
-    group: root
-    mode: 0644
-  when: victoriametrics_blackbox_address is defined
-  notify: restart victoria-metrics
-
 - name: Configure HAProxy dropin
   become: True
   template:
